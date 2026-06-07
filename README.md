@@ -64,6 +64,3 @@ The embedded firmware is written in **C** using **Code Composer Studio (CCS)**. 
 
 ## 👨‍💻 Author & Credits
 * **Arhan Özcan**
-
-## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
