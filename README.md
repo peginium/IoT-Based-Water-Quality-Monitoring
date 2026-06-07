@@ -62,14 +62,8 @@ The embedded firmware is written in **C** using **Code Composer Studio (CCS)**. 
 4. Click the **Connect** button on the web page and select the Bluetooth COM port from the browser prompt.
 5. Watch the real-time data flow!
 
-## 📸 System Previews
-*(Upload pictures of your breadboard circuit, the OLED display working, and a screenshot of the Web Dashboard here, and replace the placeholder links below)*
-* `![Hardware Setup](link_to_hardware_image.jpg)`
-* `![Web Dashboard](link_to_dashboard_image.jpg)`
-
 ## 👨‍💻 Author & Credits
-* **Arhan Özcan** - Embedded System Design & Prototyping
-* **Chipware Labs** - Teknofest Project Development
+* **Arhan Özcan**
 
 ## 📄 License
 This project is open-source and available under the [MIT License](LICENSE).
