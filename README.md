@@ -3,7 +3,6 @@
 ![C](https://img.shields.io/badge/Language-C-blue.svg)
 ![Microcontroller](https://img.shields.io/badge/MCU-MSP430G2553-red.svg)
 ![Protocol](https://img.shields.io/badge/Protocol-I2C%20%7C%20UART%20%7C%201--Wire-brightgreen.svg)
-![Status](https://img.shields.io/badge/Status-Active-success.svg)
 
 An end-to-end, IoT-based Smart Water Quality Monitoring Station designed for real-time, in-situ analysis of water health. The system utilizes edge-processing to calculate a universal **Water Quality Index (WQI)** based on multiple sensor readings and streams JSON-formatted data wirelessly to a custom web dashboard.
 
