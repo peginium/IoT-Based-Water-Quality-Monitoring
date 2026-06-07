@@ -1,4 +1,4 @@
-# 💧 Smart Water Quality Monitoring System (SWQMS)
+# 💧 Smart Water Quality Monitoring System
 
 ![C](https://img.shields.io/badge/Language-C-blue.svg)
 ![Microcontroller](https://img.shields.io/badge/MCU-MSP430G2553-red.svg)
