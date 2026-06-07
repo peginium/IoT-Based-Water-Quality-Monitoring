@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Su Kalitesi Takip Paneli</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; text-align: center; padding: 50px; }
+        .card { background: white; padding: 20px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .data { font-size: 24px; font-weight: bold; color: #333; margin: 15px 0; }
+        button { padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Akıllı Su Kalitesi İstasyonu</h2>
+        <button id="connectBtn">HC-05'e Bağlan (Seri Port)</button>
+        
+        <div class="data">Sıcaklık: <span id="t_val">--</span> °C</div>
+        <div class="data">TDS Değeri: <span id="tds_val">--</span> ppm</div>
+        <div class="data">pH Seviyesi: <span id="ph_val">--</span></div>
+        <div class="data" style="color: #28a745;">Genel WQI: <span id="wqi_val">--</span> / 100</div>
+    </div>
+
+    <script>
+        let port;
+        let reader;
+
+        document.getElementById('connectBtn').addEventListener('click', async () => {
+            try {
+                
+                port = await navigator.serial.requestPort();
+                await port.open({ baudRate: 9600 });
+                
+                const textDecoder = new TextDecoderStream();
+                const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+                reader = textDecoder.readable.getReader();
+
+                document.getElementById('connectBtn').innerText = "Bağlantı Başarılı!";
+                document.getElementById('connectBtn').style.backgroundColor = "#28a745";
+
+                let buffer = "";
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    
+                    buffer += value;
+                    
+                    if (buffer.includes('\n')) {
+                        let lines = buffer.split('\n');
+                        buffer = lines.pop();
+
+                        lines.forEach(line => {
+                            line = line.trim();
+                            if(line.startsWith('{') && line.endsWith('}')) {
+                                try {
+                                    const data = JSON.parse(line);
+                                    document.getElementById('t_val').innerText = data.t;
+                                    document.getElementById('tds_val').innerText = data.tds;
+                                    document.getElementById('ph_val').innerText = data.ph;
+                                    document.getElementById('wqi_val').innerText = data.wqi;
+                                } catch (e) {
+                                    console.log("JSON Parse Hatası:", e);
+                                }
+                            }
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error("Bağlantı hatası:", err);
+            }
+        });
+    </script>
+</body>
+</html>
